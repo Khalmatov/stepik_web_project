@@ -28,7 +28,7 @@ class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
     question = forms.IntegerField()
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, user='Max', *args, **kwargs):
         self._user = user
         super(AnswerForm, self).__init__(*args, **kwargs)
 

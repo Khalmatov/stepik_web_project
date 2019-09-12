@@ -38,11 +38,10 @@ def question(request, id):
     answers = Answer.objects.filter(question=id)
     user = User.objects.get(pk=1)
     if request.method == 'POST':
-        form = AnswerForm(user, request.POST, initial={'question': question})
+        form = AnswerForm(user, request.POST, initial={'question': question.id})
         if form.is_valid():
             answer = form.save()
-            url = question.get_url()
-            return HttpResponseRedirect(url)
+            return render(request, 'question.html', {'question': question, 'answers': answers, 'form': form})
     else:
         form = AnswerForm(user, initial={'question': question.id})
     return render(request, 'question.html', {'question': question, 'answers': answers, 'form': form})
