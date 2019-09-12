@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 from .models import Question, Answer
+from .forms import AnswerForm, AskForm
 # Create your views here.
 
 def test(request, *args, **kwargs):
@@ -34,4 +36,25 @@ def popular(request):
 def question(request, id):
     question = get_object_or_404(Question, pk=id)
     answers = Answer.objects.filter(question=id)
-    return render(request, 'question.html', {'question': question, 'answers': answers})
+    user = User.objects.get(pk=1)
+    if request.method == 'POST':
+        form = AnswerForm(user, request.POST, initial={'question': question})
+        if form.is_valid():
+            answer = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AnswerForm(user, initial={'question': question.id})
+    return render(request, 'question.html', {'question': question, 'answers': answers, 'form': form})
+
+def ask(request):
+    if request.method == 'POST':
+        user = User.objects.get(pk=1)
+        form = AskForm(user, request.POST)
+        if form.is_valid():
+            question = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'ask.html', {'form': form})
