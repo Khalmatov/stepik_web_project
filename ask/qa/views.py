@@ -41,7 +41,9 @@ def question(request, id):
         form = AnswerForm(user, request.POST, initial={'question': question.id})
         if form.is_valid():
             answer = form.save()
-            return render(request, 'question.html', {'question': question, 'answers': answers, 'form': form})
+        # else:
+        #     print('Invalid!')
+        #     return HttpResponse('200')
     else:
         form = AnswerForm(user, initial={'question': question.id})
     return render(request, 'question.html', {'question': question, 'answers': answers, 'form': form})

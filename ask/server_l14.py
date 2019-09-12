@@ -1,7 +1,7 @@
 import os
 import unittest
 import sys
-sys.path.append('/home/box/web/ask')
+sys.path.append('/home/maxim/stepik_web_project/ask/ask')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'ask.settings'
 import django
 if hasattr(django, 'setup'):

@@ -15,7 +15,7 @@ class AskForm(forms.Form):
         title = self.cleaned_data['title']
         text = self.cleaned_data['text']
         if (not title) or (not text):
-            raise forms.ValidationError
+            raise forms.ValidationError(u'message incorrect!')
         return self.cleaned_data
 
     def save(self):
@@ -33,10 +33,9 @@ class AnswerForm(forms.Form):
         super(AnswerForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        question = self.cleaned_data['question']
         text = self.cleaned_data['text']
-        if (not question) or (not text):
-            raise forms.ValidationError
+        if "spam" in text:
+            raise forms.ValidationError(u'message incorrect!')
         return self.cleaned_data
 
     def save(self):
