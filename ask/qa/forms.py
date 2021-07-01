@@ -2,6 +2,7 @@ from django import forms
 from .models import Question, Answer
 from django.shortcuts import get_object_or_404
 
+
 class AskForm(forms.Form):
     title = forms.CharField(max_length=100)
     text = forms.CharField(widget=forms.Textarea)
@@ -23,6 +24,7 @@ class AskForm(forms.Form):
         question = Question(**self.cleaned_data)
         question.save()
         return question
+
 
 class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
