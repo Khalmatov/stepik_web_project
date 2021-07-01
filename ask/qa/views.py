@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
@@ -8,6 +8,7 @@ from .forms import AnswerForm, AskForm
 # Create your views here.
 
 def test(request, *args, **kwargs):
+    return HttpResponseRedirect(reverse('question', args=(1,)))
     return HttpResponse('OK')
 
 def new_questions(request):
@@ -54,6 +55,8 @@ def ask(request):
             question = form.save()
             url = question.get_url()
             return HttpResponseRedirect(url)
+        else:
+            return HttpResponseRedirect(reverse('question', args=(1,)))
     else:
         form = AskForm()
     return render(request, 'ask.html', {'form': form})
