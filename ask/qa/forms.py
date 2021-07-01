@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import Question, Answer
 from django.shortcuts import get_object_or_404
 
@@ -7,8 +8,11 @@ class AskForm(forms.Form):
     title = forms.CharField(max_length=100)
     text = forms.CharField(widget=forms.Textarea)
 
-    def __init__(self, user="Max", *args, **kwargs):
-        self._user = user
+    def __init__(self, user=None, *args, **kwargs):
+        if not user:
+            self._user = User.objects.get(id=1)
+        else:
+            self._user = user
         super(AskForm, self).__init__(*args, **kwargs)
 
     def clean(self):
@@ -30,8 +34,11 @@ class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
     question = forms.IntegerField()
 
-    def __init__(self, user='Max', *args, **kwargs):
-        self._user = user
+    def __init__(self, user=None, *args, **kwargs):
+        if not user:
+            self._user = User.objects.get(id=1)
+        else:
+            self._user = user
         super(AnswerForm, self).__init__(*args, **kwargs)
 
     def clean(self):
