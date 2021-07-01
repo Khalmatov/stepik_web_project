@@ -1,5 +1,6 @@
 ### Django ###
 env/
+venv/
 *.log
 *.pot
 *.pyc
@@ -10,3 +11,4 @@ db.sqlite3
 /static
 .mypy_cache/
 .vscode/
+.idea
