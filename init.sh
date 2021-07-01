@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git checkout aladdin
+
 sudo /etc/init.d/mysql start
 mysql -uroot -e "create database webdb;"
 mysql -uroot -e "grant all privileges on webdb.* to 'box'@'localhost' with grant option;"

@@ -57,8 +57,9 @@ def ask(request):
         else:
             return HttpResponseRedirect(reverse('question', args=(1,)))
     else:
-        form = AskForm()
-        return render(request, 'ask.html', {'form': form})
+        return HttpResponse('200')
+        # form = AskForm()
+        # return render(request, 'ask.html', {'form': form}, status=200)
 
 def signup(request):
     if request.method == 'POST':
