@@ -8,7 +8,6 @@ from .forms import AnswerForm, AskForm
 # Create your views here.
 
 def test(request, *args, **kwargs):
-    return HttpResponseRedirect(reverse('question', args=(1,)))
     return HttpResponse('OK')
 
 def new_questions(request):
@@ -59,7 +58,7 @@ def ask(request):
             return HttpResponseRedirect(reverse('question', args=(1,)))
     else:
         form = AskForm()
-    return render(request, 'ask.html', {'form': form})
+        return render(request, 'ask.html', {'form': form})
 
 def signup(request):
     if request.method == 'POST':
